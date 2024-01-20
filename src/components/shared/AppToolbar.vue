@@ -1,14 +1,15 @@
 <template>
   <v-row id="app-toolbar">
-    <v-col>
+    <v-col class="v-col-3">
       <v-select
+        id="role-select"
         v-if="isAuthenticated && roles?.length"
         label="Viewing as"
         :model-value="currentRole"
         :items="roles"
         density="compact"
         variant="outlined"
-        @update:model-value="onValueChange($event)"
+        @update:model-value="onRoleValueChange"
       ></v-select>
     </v-col>
   </v-row>
@@ -18,10 +19,15 @@
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/useAuthStore'
 
-const { roles, isAuthenticated, currentRole } = storeToRefs(useAuthStore())
+const authStore = useAuthStore()
+const { roles, isAuthenticated, currentRole } = storeToRefs(authStore)
 
-const onValueChange = (event: string) => {
-  useAuthStore().updateCurrentRole(event)
+/*
+  Role Select
+*/
+
+const onRoleValueChange = (selectedRole: string) => {
+  authStore.updateCurrentRole(selectedRole)
 }
 
 </script>

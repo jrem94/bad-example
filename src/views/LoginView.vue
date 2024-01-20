@@ -31,6 +31,7 @@ import { useAuth } from '@/composables/useAuth'
 import { useAuthStore } from '@/stores/useAuthStore'
 
 const authStore = useAuthStore()
+const auth = useAuth()
 
 const loginInfo = reactive({
   username: '',
@@ -38,7 +39,7 @@ const loginInfo = reactive({
 })
 
 const handleLogin = () => {
-  const roles = useAuth().requestUserAuth(loginInfo.username, loginInfo.password)
+  const roles = auth.requestUserAuth(loginInfo.username, loginInfo.password)
   authStore.updateRoles(roles)
   authStore.updateIsAuth(!!authStore.roles.length)
   if (!authStore.isAuthenticated) {

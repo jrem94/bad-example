@@ -13,8 +13,11 @@ import { computed } from 'vue'
 
 const props = defineProps<{ document: LetterOfAgreement | undefined }>()
 
+/*
+  Status
+*/
+
 const status = computed(() => props.document?.status)
-const tag = computed(() => props.document?.tag)
 
 const statusColor = computed(() => {
   if (!status.value)  return 'black'
@@ -30,6 +33,12 @@ const statusColor = computed(() => {
       return 'black'
   }
 })
+
+/*
+  Tag
+*/
+
+const tag = computed(() => props.document?.tag)
 
 const tagColor = computed(() => {
   if (!tag.value)  return 'black'
