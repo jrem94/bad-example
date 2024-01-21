@@ -8,14 +8,17 @@
 export interface IRevision {
   id: number;
   letterOfAgreementId: number; // FK
-  revisionStatusId: number; // FK
-  revisionCommentId: number; // FK
+  statusId: number; // FK
   previousRevisionId: number; // Reference
   amendmentId: number;  // FK
   groupId?: number;  // FK
+  tierId: number; // FK
   submittedUserId: number;  // FK
   approvedUserId: number;  // FK
+  submittedDate: Date,
+  approvedDate: Date,
   startDate: Date;
   endDate: Date;
   createdDate: Date;
+  isDiscarded: boolean;
 }

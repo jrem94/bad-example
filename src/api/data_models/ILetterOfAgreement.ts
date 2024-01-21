@@ -5,5 +5,6 @@
 
 export interface ILetterOfAgreement {
   id: number;
+  contractId: number; // FK
   locationId: number; // FK
 }
