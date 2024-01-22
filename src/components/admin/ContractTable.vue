@@ -1,5 +1,5 @@
 <template>
-  <h2>Status</h2>
+  <h2>Contracts</h2>
 <v-card variant="outlined">
   <v-data-table
     :show-select="true"
@@ -16,9 +16,9 @@
           color="primary"
           dark
           class="mb-2"
-          @click="createGroup"
+          @click="createContract"
         >
-          Create Group
+          Create New
         </v-btn>
       </v-toolbar>
     </template>
@@ -32,17 +32,16 @@ import TaggedStatus from '@/components/shared/TaggedStatus.vue'
 import { ActivatableDialogs, useDialogStore } from '@/stores/useDialogStore'
 
 const headers: { title: string, key: string }[] = [
-  { title: 'Status', key: 'status' },
-  { title: 'Location', key: 'locationId' },
   { title: 'Contract Number', key: 'contractNumber' },
-  { title: 'Tier', key: 'tierNumber' },
-  { title: 'Group Id', key: 'groupId' }
+  { title: 'Amendment Number', key: 'amendmentNumber' },
+  { title: 'Status', key: 'amendmentStatus' }
 ]
 
 const lettersOfAgreement: LetterOfAgreement[] = []
 
-const createGroup = () => {
-  useDialogStore().activateDialog(ActivatableDialogs.CreateGroupDialog)
+const createContract = () => {
+  console.log('Create New')
+  useDialogStore().activateDialog(ActivatableDialogs.CreateAdminContractDialog)
 }
 
 </script>

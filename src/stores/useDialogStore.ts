@@ -6,6 +6,7 @@ export const useDialogStore = defineStore('dialog', () => {
   const currentActiveDialog = computed(() => _currentActiveDialog.value)
 
   const activateDialog = (dialog: ActivatableDialogs) => {
+    closeActiveDialog()
     _currentActiveDialog.value = dialog
   }
 
@@ -22,5 +23,6 @@ export const useDialogStore = defineStore('dialog', () => {
 
 export enum ActivatableDialogs {
   None,
-  CreateGroupDialog
+  CreateGroupDialog,
+  CreateAdminContractDialog
 }

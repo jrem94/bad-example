@@ -14,7 +14,7 @@
  */
 
 export interface IGroup {
-  id: number;
+  id?: number;
   perimeterHierarchyNodeId: number; // FK
   amendmentId: number; // FK
   tierId: number; // FK

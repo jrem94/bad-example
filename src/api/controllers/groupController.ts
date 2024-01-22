@@ -5,7 +5,7 @@ import type { IDataWrapper } from '@/api/utils/httpMock'
 export const groupController = () => {
   const GroupService = groupService()
 
-  const createNewGroup = (newGroup: IGroupDto): IDataWrapper => {
+  const createNewGroup = async (newGroup: IGroupDto): Promise<IDataWrapper> => {
     const newGroupId = GroupService.createNewGroup(newGroup)
     return { status: 200, data: { newGroupId } }
   }

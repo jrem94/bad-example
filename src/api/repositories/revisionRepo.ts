@@ -5,7 +5,11 @@ export const revisionRepo = () => {
 
   const add = (revision: IRevision): IRevision => {
     if (!revision.id) {
-      revision.id = revisionData.length ? revisionData[revisionData.length - 1].id + 1 : 1
+      if (revisionData.length) {
+        revision.id = revisionData[revisionData.length - 1].id
+      } else {
+        revision.id = 1
+      }
     }
 
     revisionData.push(revision)
@@ -15,7 +19,7 @@ export const revisionRepo = () => {
 
   const discardRevision = (revision: IRevision) => {
     revision.isDiscarded = true
-    const index = revisionData.indexOf(x => x.id === revision.id)
+    const index = revisionData.indexOf(revision)
     revisionData[index] = revision
   }
 
@@ -26,19 +30,19 @@ export const revisionRepo = () => {
     return revisionData
       .filter((x: IRevision) => x.letterOfAgreementId === letterOfAgreementId)
       .filter((x: IRevision) => !x.isDiscarded)
-      .filter((x: IRevision) => x.startDate <= Date.now())
+      .filter((x: IRevision) => x.startDate as Date <= new Date())
       .filter((x: IRevision) => x.approvedDate)
-      .sort((a: IRevision, b: IRevision) => a.approvedDate - b.approvedDate)[0]
+      .sort((a: IRevision, b: IRevision) => (a.approvedDate as Date).getTime() - (b.approvedDate as Date).getTime())[0]
   }
 
-  const getPendingRevisionByLetterOfAgreementId = (letterOfAgreementId: number): IRevision | null => {
+  const getPendingRevisionByLetterOfAgreementId = (letterOfAgreementId: number): IRevision | undefined => {
     // It is a pending revision if its part of the LOA, not discarded, has a start date not in the future
     // and has yet to be approved.
 
     return revisionData
       .filter((x: IRevision) => x.letterOfAgreementId === letterOfAgreementId)
       .filter((x: IRevision) => !x.isDiscarded)
-      .filter((x: IRevision) => x.startDate <= Date.now())
+      .filter((x: IRevision) => (x.startDate as Date).getTime() <= new Date().getTime())
       .find((x: IRevision) => !x.approvedDate)
   }
 

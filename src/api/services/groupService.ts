@@ -27,7 +27,7 @@ export const groupService = () => {
     for (let i = 0; i < groupDto.participantIds.length; i++) {
       const loaId = groupDto.participantIds[i]
       const currentRevision: IRevision = RevisionRepo.getCurrentRevisionByLetterOfAgreementId(loaId)
-      const pendingRevision: IRevision = RevisionRepo.getPendingRevisionByLetterOfAgreementId(loaId)
+      const pendingRevision: IRevision | undefined = RevisionRepo.getPendingRevisionByLetterOfAgreementId(loaId)
 
       if (pendingRevision) {
         RevisionRepo.discardRevision(pendingRevision)
@@ -40,10 +40,7 @@ export const groupService = () => {
         amendmentId: group.amendmentId,
         groupId: createdGroup.id,
         tierId: createdGroup.tierId,
-        submittedUserId: null, // how?
-        approvedUserId: null, // how?
         submittedDate: new Date(),
-        approvedDate: null,
         startDate: amendment.startDate,
         endDate: amendment.endDate,
         createdDate: new Date(),
@@ -51,6 +48,10 @@ export const groupService = () => {
       }
 
       RevisionRepo.add(newPendingRevision)
+    }
+
+    if (!createdGroup.id) {
+      throw Error(`Something when wrong creating new group.`)
     }
 
     return createdGroup.id

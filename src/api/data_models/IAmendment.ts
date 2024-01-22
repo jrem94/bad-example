@@ -7,7 +7,9 @@
 
 export interface IAmendment {
   id: number;
+  amendmentNumber: number;
   contractId: number; // FK
+  amendmentStatusId: number; // FK
   previousAmendmentId: number; // Reference
   text: string;
   startDate: Date;

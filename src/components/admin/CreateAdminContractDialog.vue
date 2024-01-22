@@ -10,29 +10,42 @@
 
         <v-stepper :alt-labels="true" :items="steps">
           <template v-slot:[`item.1`]>
-            <v-card title="Select a Contract" :flat="true">
+            <v-card title="Select a Contract and Amendment" :flat="true">
               ...
             </v-card>
           </template>
 
           <template v-slot:[`item.2`]>
-            <v-card title="Choose a Tier" :flat="true">
+            <v-card title="Add Attributes" :flat="true">
               ...
             </v-card>
           </template>
 
           <template v-slot:[`item.3`]>
-            <v-card title="Add Participants" :flat="true">
+            <v-card title="Upload Files" :flat="true">
               <div>...</div>
-              <div><v-checkbox label="Make Auto Add" v-model="groupData.isAutoAdd"></v-checkbox></div>
             </v-card>
           </template>
 
           <template v-slot:[`item.4`]>
-            <v-card title="Review and Submit" :flat="true">
-              <v-btn :flat="true" variant="outlined" :disabled="!canSubmit" @click="submitGroup">Submit</v-btn>
+            <v-card title="Manage Participant Visibility" :flat="true">
+              <div>...</div>
             </v-card>
           </template>
+
+          <template v-slot:[`item.5`]>
+            <v-card title="Set Administrative Properties" :flat="true">
+              <div>...</div>
+            </v-card>
+          </template>
+
+          <template v-slot:[`item.6`]>
+            <v-card title="Review and Submit" :flat="true">
+              <div>...</div>
+              <v-btn :flat="true" variant="outlined" :disabled="!canSubmit" @click="submitContract">Submit</v-btn>
+            </v-card>
+          </template>
+
         </v-stepper>
       </v-card>
     </v-dialog>
@@ -52,32 +65,26 @@ const { closeActiveDialog } = dialogStore
   Data
 */
 
-const steps: string[] = ['Contract', 'Tier', 'Participants', 'Review']
+const steps: string[] = ['Contract', 'Attributes', 'Uploads', 'Visibility', 'Administration', 'Review']
 
-const groupData = reactive({
-  contractId: null,
-  tierId: null,
-  participantIds: [],
-  isAutoAdd: false
+const contractData = reactive({
+
 })
 
-const resetGroupValues = () => {
-  groupData.contractId = null
-  groupData.tierId = null
-  groupData.participantIds = []
-  groupData.isAutoAdd = false
+const resetContractValues = () => {
+
 }
 
 /*
   Dialog
 */
 
-const dialogType: ActivatableDialogs = ActivatableDialogs.CreateGroupDialog
+const dialogType: ActivatableDialogs = ActivatableDialogs.CreateAdminContractDialog
 
 const isDialogActive = computed(() => currentActiveDialog.value === dialogType)
 
 const closeDialog = () => {
-  resetGroupValues()
+  resetContractValues()
   closeActiveDialog()
 }
 
@@ -85,15 +92,14 @@ const closeDialog = () => {
   Step: Review and Submit
 */
 
-const canSubmit = computed(() => groupData.contractId && groupData.tierId && groupData.participantIds.length)
+const canSubmit = computed(() => contractData)
 
-const submitGroup = () => {
-  console.log(groupData)
+const submitContract = () => {
+  console.log(contractData)
   closeDialog()
 }
 
 </script>
-
 
 <style scoped>
 
