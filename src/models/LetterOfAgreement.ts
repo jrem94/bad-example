@@ -7,6 +7,7 @@ export interface ILetterOfAgreementDto {
   locationId: number
   currentRevision: IRevisionDto
   pendingRevision: IRevisionDto
+  status: string
 }
 
 export class LetterOfAgreement implements ILetterOfAgreementDto {
@@ -15,13 +16,15 @@ export class LetterOfAgreement implements ILetterOfAgreementDto {
   locationId: number
   currentRevision: Revision
   pendingRevision: Revision
+  status: string
 
-  constructor(id: number, contractId: number, locationId: number, currentRevision: Revision, pendingRevision: Revision) {
+  constructor(id: number, contractId: number, locationId: number, currentRevision: Revision, pendingRevision: Revision, status: string) {
     this.id = id
     this.contractId = contractId
     this.locationId = locationId
     this.currentRevision = currentRevision
     this.pendingRevision = pendingRevision
+    this.status = status
   }
 
 }

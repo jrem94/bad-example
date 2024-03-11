@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import LetterOfAgreement from '@/models/LetterOfAgreement'
+import { LetterOfAgreement } from '@/models/LetterOfAgreement'
 import { computed } from 'vue'
 
 const props = defineProps<{ document: LetterOfAgreement | undefined }>()
